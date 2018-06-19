@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dire Wallet</title>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/static/code.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <h2>Dire Wallet</h2>
+    <p>We will not store your private keys. We promise!</p>
+    <div class="col-6 offset-3">
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Private key</span>
+            </div>
+            <input id="private_key" type="text" class="form-control">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Public key</span>
+            </div>
+            <input id="public_key" type="text" class="form-control">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Address</span>
+            </div>
+            <input id="address" type="text" class="form-control">
+        </div>
+
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Account balance</span>
+            </div>
+            <input id="balance" type="text" class="form-control">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-right">
+            <button id="new_account" class="btn btn-success">create new account</button>
+            <button id="load_account" class="btn btn-primary">load account</button>
+            <button id="show_balance" class="btn btn-info">show balance</button>
+            <button id="logout" class="btn btn-danger">logout</button>
+        </div>
+    </div>
+    <hr/>
+    <h4>Sign new transaction</h4>
+    <div class="row">
+        <form id="transaction" class="col">
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">To</span>
+                </div>
+                <input name="to" id="to" type="text" class="form-control">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Amount</span>
+                </div>
+                <input name="value" id="value" type="number" class="form-control">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Fee</span>
+                </div>
+                <input name="fee" id="fee" type="number" class="form-control">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Additional data</span>
+                </div>
+                <input name="data" id="data" type="text" class="form-control">
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <button id="sign_transaction" class="btn btn-info">sign transaction</button>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col text-center">
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Signed transaction</span>
+                </div>
+                <textarea id="signed_transaction" class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
