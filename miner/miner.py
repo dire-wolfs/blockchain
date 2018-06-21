@@ -28,7 +28,10 @@ class Miner():
 
     def run(self):
         while True:
+
             block = self.get_job()
+            if not block:
+                continue
 
             t = threading.Thread(target=Miner.mine, args=(block,))
             t.start()
@@ -64,7 +67,15 @@ class Miner():
         return None
 
     def get_job(self):
-        response = requests.get(f'http://{self.node_url}/mining/get-mining-job/{self.address}')
+
+        try:
+            response = requests.get(f'http://{self.node_url}/mining/get-mining-job/{self.address}')
+        except requests.exceptions.ConnectionError as ce:
+            print("Could not get a job")
+            print("Sleeping for 60 seconds")
+            print(ce.strerror)
+            sleep(60)
+            return self.get_job()
 
         if response.status_code == 200:
             block = Block(

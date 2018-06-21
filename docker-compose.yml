@@ -1,0 +1,31 @@
+version: '2'
+services:
+  wallet:
+    build:
+      context: ./wallet
+      dockerfile: Dockerfile
+    ports:
+    - "5001:5000"
+  faucet:
+    environment:
+      - ACCOUNT_PKEY=0x7a4045886a916843a9b3e0c89c2f6b28070e056895a722755feb9c6eb442fdbf
+      - NODE_URL=node:5000
+      - WALLET_URL=wallet:5000
+    build:
+      context: ./faucet
+      dockerfile: Dockerfile
+    ports:
+    - "5002:5000"
+#  miner:
+#    environment:
+#      - NODE_URL=node:6001
+#      - MINER_ADDRESS=64fc78F058E664f8CEceBEA65c03bCe199515c75
+#    build:
+#      context: ./miner
+#      dockerfile: Dockerfile
+  node:
+    build:
+      context: ./node
+      dockerfile: Dockerfile
+    ports:
+    - "5003:5000"

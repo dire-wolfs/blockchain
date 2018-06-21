@@ -27,9 +27,9 @@ class Wallet(object):
 
         return self.private_key, self.public_key, self.address
 
-    def open_wallet(self, wallet):
-        wallet = binascii.unhexlify(wallet[2:])
-        private_key = keys.PrivateKey(wallet)
+    def open_wallet(self, pkey):
+        pkey = binascii.unhexlify(pkey[2:])
+        private_key = keys.PrivateKey(pkey)
         public_key = private_key.public_key
         address = public_key.to_checksum_address()
         self.store(private_key, public_key, address)
@@ -96,10 +96,10 @@ def get_wallet(ip) -> Wallet:
     return wallets.get(ip)
 
 
-@app.route('/account/<account_id>', methods=['GET'])
-def load_account(account_id):
+@app.route('/account/<pkey>', methods=['GET'])
+def load_account(pkey):
     w = get_wallet(request.remote_addr)
-    wallet = w.open_wallet(account_id)
+    wallet = w.open_wallet(pkey)
 
     response = {
         'private_key': wallet[0],
@@ -143,7 +143,7 @@ def forget_account():
     return '', 204
 
 
-@app.route('/transactions/send', methods=['POST'])
+@app.route('/transactions/sign', methods=['POST'])
 def transaction_send():
     w = get_wallet(request.remote_addr)
     values = request.get_json()
@@ -182,19 +182,14 @@ def transaction_verify():
 @app.route('/balance', methods=['GET'])
 def get_balance():
     w = get_wallet(request.remote_addr)
-
+    # todo: implement pending and confirmed
     response = {
-        "balance": w.show_balance()
+        "safe_balance": w.show_balance(),
+        "pending_balance": 0,
+        "confirmed_balance": 0
     }
 
     return jsonify(response), 200
-
-
-@app.route('/dump', methods=['GET'])
-def dump():
-    print(wallets)
-
-    return jsonify(''), 200
 
 
 @app.route('/')
@@ -206,11 +201,11 @@ if __name__ == '__main__':
     from argparse import ArgumentParser
 
     parser = ArgumentParser()
-    parser.add_argument('-p', '--port', default=4000, type=int, help='port to listen on')
+    parser.add_argument('-p', '--port', default=5000, type=int, help='port to listen on')
     args = parser.parse_args()
     port = args.port
 
-    app.run(host='127.0.0.1', port=port)
+    app.run(host='0.0.0.0', port=port)
 
     # w.open_wallet('0x8a93f3a4a1fdf86f3e0453af4110ad83ef779cd315dbd26ca35afc33ac7c20a1')
     # print('new address: ', w.address)

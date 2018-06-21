@@ -1,0 +1,6 @@
+eth-keys==0.2.0b3
+Flask==0.12.2
+requests==2.18.4
+eth-hash==0.1.4
+eth-utils==1.0.3
+pycryptodome==3.6.1

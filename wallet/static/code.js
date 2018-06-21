@@ -48,7 +48,7 @@ $(document).ready(function () {
         $.ajax({
             url: "/balance",
             success: function(result) {
-                $('#balance').val(result.balance);
+                $('#balance').val(result.safe_balance);
             }
         });
     });
