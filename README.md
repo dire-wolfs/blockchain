@@ -37,3 +37,15 @@ Talks to `node` as asks for new job and then mines it.
 ## node
 
 Should include block explorer.
+
+TODO:
+
+`GET /transactions` - Get all transactions so far (perhaps should be blocks and iterate over blocks)
+
+`GET /blocks/last-block` - Get the last block on the chain
+
+`GET /mining/get-mining-job/<address>` - Get mining job, ready to mine (block_data_hash, difficulty, etc.)
+
+`POST /mining/submit-mined-block` - Submit minded job (nonce, hash, timestamp)
+
+`POST /transactions/send` - Add/Create new transaction for the next block

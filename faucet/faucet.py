@@ -18,7 +18,7 @@ class Faucet:
     def send_coins(self, account_id, amount):
         self.login_to_wallet()
 
-        response = requests.post(f'{self.wallet_url}/transactions/send', data=json.dumps({
+        response = requests.post(f'{self.wallet_url}/transactions/sign', data=json.dumps({
             'to': account_id,
             'value': amount,
             'fee': 0,
